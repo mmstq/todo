@@ -10,6 +10,8 @@ class TodoController extends GetxController {
   final noteController = TextEditingController();
   final dateController = TextEditingController();
 
+  final formKey = GlobalKey<FormState>();
+
   @override
   void onInit() {
     _getData();
@@ -47,5 +49,10 @@ class TodoController extends GetxController {
             dueDate: dueDate));
     titleController.clear();
     noteController.clear();
+  }
+  void deleteTodo(int id)async{
+    await DatabaseHelper.instance.delete(id).then((value) {
+      todos.removeWhere((element) => element.id! == id);
+    });
   }
 }

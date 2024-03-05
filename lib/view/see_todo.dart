@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo/components/frequent_widgets.dart';
 import 'package:todo/controller/todo_controller.dart';
 import 'package:todo/view/add_todo.dart';
 
-class See extends StatefulWidget {
-  const See({super.key});
+class See extends GetView<TodoController> {
+  See({super.key});
 
-  @override
-  State<See> createState() => _SeeState();
-}
-
-class _SeeState extends State<See> {
-  final TodoController _controller = Get.put(TodoController());
   final List<String> _months = [
     'Jan',
     'Feb',
@@ -32,57 +27,62 @@ class _SeeState extends State<See> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
-        title: const Text('My Todo', style: TextStyle(fontWeight: FontWeight.w900),),
-        centerTitle: true,
+        title: const Text("My Todo's", style: TextStyle(fontWeight: FontWeight.w900, color: Colors.white),),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Obx(() => ListView(
-              children: _controller.todos.map((element) {
+              children: controller.todos.map((element) {
                 return Container(
-                  margin: const EdgeInsets.all(8),
+                  margin: const EdgeInsets.only(top: 16),
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey.shade100),
                       borderRadius: BorderRadius.circular(8),
                       color: Colors.white),
                   padding: const EdgeInsets.all(12),
-                  child: Column(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: Text(
+                      SizedBox(
+                        width: Get.width*0.6,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
                               element.title,
-                              maxLines: 2,
+                              maxLines: 1,
                               style: const TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w400),
                             ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 4, vertical: 2),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: Colors.lightGreen),
-                            child: Text(
-                                '${element.dueDate.day} ${_months[element.dueDate.month]}',
+                            Text(element.note,
+                                maxLines: 1,
                                 style: const TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white)),
-                          ),
-                        ],
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.grey)),
+                          ],
+                        ),
                       ),
-                      const SizedBox(
-                        height: 4,
+                      const Spacer(),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 4, vertical: 2),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.lightGreen),
+                        child: Text(
+                            '${element.dueDate.day} ${_months[element.dueDate.month]}',
+                            style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white)),
                       ),
-                      Text(element.note,
-                          style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.grey)),
+                      hPad16,
+                      InkWell(onTap: (){
+                        controller.deleteTodo(element.id!);
+                      }, child: const Icon(Icons.delete, color: Colors.redAccent,size: 20,)),
                     ],
                   ),
                 );
@@ -92,7 +92,7 @@ class _SeeState extends State<See> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           Navigator.push(
-              context, MaterialPageRoute(builder: (_) => const Add()));
+              context, MaterialPageRoute(builder: (_) => Add()));
           // _controller.todos.refresh();
           // print('refresh');
         },
