@@ -5,15 +5,14 @@ import 'package:todo/components/custom_input_widgets.dart';
 import 'package:todo/controller/todo_controller.dart';
 
 class Add extends GetView<TodoController> {
-   const Add({super.key});
-
+  const Add({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         iconTheme: const IconThemeData(color: Colors.white),
-        title: const Text('Add To Do',style: TextStyle(fontWeight: FontWeight.w900, color: Colors.white),),
+        title: const Text('Add To Do', style: TextStyle(fontWeight: FontWeight.w900, color: Colors.white),),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -28,7 +27,7 @@ class Add extends GetView<TodoController> {
                 label: 'Title',
                 keyboardType: TextInputType.text,
                 validator: (value) {
-                  if(value == null || value.isEmpty){
+                  if (value == null || value.isEmpty) {
                     return 'Enter todo title';
                   }
                   return null;
@@ -45,12 +44,12 @@ class Add extends GetView<TodoController> {
                 initialValue: DateFormat('dd MMM').format(controller.dueDate),
                 label: 'Due Date',
                 validator: (value) {
-                  if(value == null || value.isEmpty){
+                  if (value == null || value.isEmpty) {
                     return 'Select todo due date';
                   }
                   return null;
                 },
-                onChanged: (String? s)  {
+                onChanged: (String? s) {
                   controller.dueDate = DateTime.parse(s!);
                 },
 
@@ -61,7 +60,7 @@ class Add extends GetView<TodoController> {
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8)))),
                   onPressed: () {
-                    if(controller.formKey.currentState!.validate()){
+                    if (controller.formKey.currentState!.validate()) {
                       controller.addData();
                       Navigator.pop(context);
                     }
@@ -74,3 +73,4 @@ class Add extends GetView<TodoController> {
     );
   }
 }
+
