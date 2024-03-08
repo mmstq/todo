@@ -10,7 +10,6 @@ class Add extends GetView<TodoController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
         iconTheme: const IconThemeData(color: Colors.white),
         title: const Text('Add To Do', style: TextStyle(fontWeight: FontWeight.w900, color: Colors.white),),
       ),

@@ -26,12 +26,11 @@ class See extends GetView<TodoController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
-        title: const Text("My Todo's", style: TextStyle(fontWeight: FontWeight.w900, color: Colors.white),),
+        title: const Text("Todo"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Obx(() => ListView(
+        child: Obx(() => controller.todos.isNotEmpty?ListView(
               children: controller.todos.map((element) {
                 return Container(
                   margin: const EdgeInsets.only(top: 16),
@@ -87,7 +86,14 @@ class See extends GetView<TodoController> {
                   ),
                 );
               }).toList(),
-            )),
+            ): Center(child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('No Todo', style: Get.textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w800)),
+                vPad16,
+                const Text('Press + button to add.'),
+              ],
+            ),)),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {

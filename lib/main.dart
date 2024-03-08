@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todo/view/add_todo.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:todo/view/see_todo.dart';
 
 import 'controller/todo_controller.dart';
@@ -22,10 +22,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'To Do',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
+        colorScheme: ColorScheme.fromSeed(brightness:Brightness.light, seedColor: Colors.lightGreen),
         useMaterial3: true,
+        fontFamily: GoogleFonts.rajdhani().fontFamily,
         appBarTheme: AppBarTheme(
           scrolledUnderElevation: 4,
+          titleTextStyle: const TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 24),
+          color: Colors.lightGreen,
           elevation: 4,
             shadowColor: Colors.black.withOpacity(.5),
         )
